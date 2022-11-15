@@ -14,6 +14,28 @@ const CurrentVoteInfo = ({voteCount, btnText, handleClick}) => {
   )
 }
 
+const MostVotedAnecdote = ({anecdotes, votes}) => {
+
+  const mostVotedIdx = () => {
+    const copyOfVotes = [...votes]
+    const maxValue    = Math.max(...copyOfVotes)
+    const index       = copyOfVotes.indexOf(maxValue)
+
+    return index
+  }
+
+  const votedAnecdote      = () => anecdotes[mostVotedIdx()]
+  const votedAnecdoteCount = () => votes[mostVotedIdx()]
+
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+      <p>{votedAnecdote()}</p>
+      <p>Has {votedAnecdoteCount()} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -25,11 +47,8 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.'
   ]
 
-  const [selectedAnecdote, setSelectedAnecdote] = useState(0)
-  const [votes, setVotes]                       = useState(new Array(anecdotes.length).fill(0))
-
-  console.log(votes)
-  console.log('selected', selectedAnecdote)
+  const [selectedAnecdote, setSelectedAnecdote]             = useState(0)
+  const [votes, setVotes]                                   = useState(new Array(anecdotes.length).fill(0))
 
   const nextAnecdote = () => {
     let randomNum = Math.floor(Math.random() * anecdotes.length)
@@ -50,6 +69,7 @@ const App = () => {
       <CurrentAnecdote anecdote={anecdotes[selectedAnecdote]} />
       <CurrentVoteInfo voteCount={votes[selectedAnecdote]} btnText='vote' handleClick={voteAnecdote}/>
       <NextAnecdoteBtn btnText='next anecdote' handleClick={nextAnecdote}/>
+      <MostVotedAnecdote anecdotes={anecdotes} votes={votes}/>
     </div>
   )
 }
