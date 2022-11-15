@@ -4,7 +4,14 @@ const Header = () => <div><h1>Give feedback</h1></div>
 
 const FeedBackBtn = ({handleClick, buttonTxt}) => <button onClick={handleClick}>{buttonTxt}</button>
 
-const StatisticsLine = ({text, value}) => <p>{text}: {value}</p>
+const StatisticsLine = ({text, value}) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
+}
 
 const Statistics = ({good, neutral, bad}) => {
 
@@ -22,15 +29,16 @@ const Statistics = ({good, neutral, bad}) => {
   }
 
   return (
-    <div>
-      <h1>Statistics</h1>
-      <StatisticsLine text='Good' value={good} />
-      <StatisticsLine text='Neutral' value={neutral} />
-      <StatisticsLine text='Bad' value={bad} />
-      <StatisticsLine text='All' value={countAll()} />
-      <StatisticsLine text='Average' value={countAverage()} />
-      <StatisticsLine text='Positive' value={countPositive()} />
-    </div>
+    <table>
+      <tbody>
+        <StatisticsLine text='Good' value={good} />
+        <StatisticsLine text='Neutral' value={neutral} />
+        <StatisticsLine text='Bad' value={bad} />
+        <StatisticsLine text='All' value={countAll()} />
+        <StatisticsLine text='Average' value={countAverage()} />
+        <StatisticsLine text='Positive' value={countPositive()} />
+      </tbody>
+    </table>
   )
 }
 
@@ -52,6 +60,7 @@ const App = () => {
       <FeedBackBtn buttonTxt='bad' handleClick={handleClickBad} />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
+
   )
 }
 
