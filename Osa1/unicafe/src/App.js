@@ -7,31 +7,16 @@ const FeedBackBtn = ({handleClick, buttonTxt}) => (<button onClick={handleClick}
 const Statistics = ({good, neutral, bad}) => {
 
   const countAll = () => good + neutral + bad
-  const countPositive = () => {
-    let ret = 0
-    if (countAll() === 0)
-    {
-      return ret   
-    }
-    else
-    {
-      ret = good / countAll() * 100      
-    }
-    return ret
-  }
-
-  const countAverage = () => {
-    let ret = 0
-    if (countAll() === 0)
-    {
-      return ret      
-    }
-    else
-    {
-      ret = (good - bad) / countAll()   
-    }
-
-    return ret
+  const countPositive = () => good / countAll() * 100   
+  const countAverage = () => (good - bad) / countAll()
+  
+  if (countAll() === 0)
+  {
+    return (
+      <div>
+        <h4>No feedback given</h4>
+      </div>
+    )
   }
 
   return (
