@@ -1,8 +1,18 @@
 import { useState } from "react"
 
-const CurrentAnecdote = ({anecdote}) => <h4>{anecdote}</h4>
+const Header = () => <h2>Anecdote of the day</h2>
+const CurrentAnecdote = ({anecdote}) => <p>{anecdote}</p>
+const NextAnecdoteBtn = ({btnText, handleClick}) => <button onClick={handleClick}>{btnText}</button>
+const VoteAnecdoteBtn = ({btnText, handleClick}) => <button onClick={handleClick}>{btnText}</button>
 
-const NextAnecdoteBtn = ({btnText, handleClick}) => <button onClick={handleClick}>{btnText}</button> 
+const CurrentVoteInfo = ({voteCount, btnText, handleClick}) => {
+  return (
+    <div>
+      <p>Has {voteCount} votes</p>
+      <VoteAnecdoteBtn btnText={btnText} handleClick={handleClick} />
+    </div>
+  )
+}
 
 const App = () => {
   const anecdotes = [
@@ -16,18 +26,29 @@ const App = () => {
   ]
 
   const [selectedAnecdote, setSelectedAnecdote] = useState(0)
-  const [currentAnecdote, setCurrentAnecdote]   = useState(anecdotes[selectedAnecdote])
+  const [votes, setVotes]                       = useState(new Array(anecdotes.length).fill(0))
+
+  console.log(votes)
+  console.log('selected', selectedAnecdote)
 
   const nextAnecdote = () => {
     let randomNum = Math.floor(Math.random() * anecdotes.length)
-
+    console.log('random', randomNum)
     setSelectedAnecdote(randomNum)
-    setCurrentAnecdote(anecdotes[selectedAnecdote])
+  }
+
+  const voteAnecdote = () => {
+    const copyOfVotes = [...votes]
+
+    copyOfVotes[selectedAnecdote] += 1
+    setVotes(copyOfVotes)
   }
   
   return (
     <div>
-      <CurrentAnecdote anecdote={currentAnecdote} />
+      <Header />
+      <CurrentAnecdote anecdote={anecdotes[selectedAnecdote]} />
+      <CurrentVoteInfo voteCount={votes[selectedAnecdote]} btnText='vote' handleClick={voteAnecdote}/>
       <NextAnecdoteBtn btnText='next anecdote' handleClick={nextAnecdote}/>
     </div>
   )
