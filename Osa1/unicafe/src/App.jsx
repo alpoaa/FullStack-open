@@ -16,21 +16,28 @@ const Button = ({handleClick, buttonText}) => {
 
 const StatisticsHeader = () => <div><h1>Statistics</h1></div>
 
-const StatisticsLine = ({statistic, count}) => {
+const StatisticsLine = ({statistic, count, marking }) => {
   return (
     <div>
-      <p>{statistic} {count}</p>
+      <p>{statistic} {count} {marking}</p>
     </div>
   )
 }
 
 const Statistics = ({good, neutral, bad}) => {
+  const countAll = good + neutral + bad
+  const countAverage = (good - bad) / countAll
+  const countPositives = good / countAll * 100
+
   return (
     <div>
       <StatisticsHeader />
       <StatisticsLine statistic={'good'} count={good} />
       <StatisticsLine statistic={'neutral'} count={neutral} />
       <StatisticsLine statistic={'bad'} count={bad} />
+      <StatisticsLine statistic={'all'} count={countAll} />
+      <StatisticsLine statistic={'average'} count={countAverage} />
+      <StatisticsLine statistic={'positives'} count={countPositives} marking={'%'}/>
     </div>
   )
 }
