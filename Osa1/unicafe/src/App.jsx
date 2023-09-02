@@ -29,6 +29,16 @@ const Statistics = ({good, neutral, bad}) => {
   const countAverage = (good - bad) / countAll
   const countPositives = good / countAll * 100
 
+  if (countAll === 0)
+  {
+    return (
+      <div>
+        <StatisticsHeader />
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+
   return (
     <div>
       <StatisticsHeader />
