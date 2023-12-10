@@ -29,15 +29,23 @@ const Statistics = (props) => {
   return (
     <div>
       <h3>Statistics</h3>
-      <p>Good: {props.goodVotes}</p>
-      <p>Neutral: {props.neutralVotes}</p>
-      <p>Bad: {props.badVotes}</p>
-      <p>All: {props.allVotes}</p>
-      <p>Average: {(props.goodVotes - props.badVotes) / props.allVotes}</p>
-      <p>Positive: {(props.goodVotes / props.allVotes) * 100} %</p>
+      <StatisticsLine text='Good' value={props.goodVotes} />
+      <StatisticsLine text='Neutal' value={props.neutralVotes} />
+      <StatisticsLine text='Bad' value={props.badVotes} />
+      <StatisticsLine text='All' value={props.allVotes} />
+      <StatisticsLine text='Average' value={(props.goodVotes - props.badVotes) / props.allVotes} />
+      <StatisticsLine text='Positive' value={(props.goodVotes / props.allVotes) * 100 + ' %'} />
     </div>
   )
-} 
+}
+
+const StatisticsLine = ({text, value}) => {
+  return (
+    <div>
+      <p>{text}: {value}</p>
+    </div>
+  )
+}
 
 const App = () => {
 
