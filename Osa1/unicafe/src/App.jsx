@@ -15,6 +15,17 @@ const VoteButton = ({txt, handleClick}) => {
 }
 
 const Statistics = (props) => {
+
+  if (props.allVotes === 0)
+  {
+    return (
+      <div>
+        <h3>Statistics</h3>
+        <p>No feedback given</p>
+      </div>    
+    )
+  }
+
   return (
     <div>
       <h3>Statistics</h3>
