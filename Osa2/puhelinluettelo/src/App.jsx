@@ -5,9 +5,10 @@ import Numbers from './components/Numbers'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-1234567'}
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -18,24 +19,35 @@ const App = () => {
     }
     else {
       const newPerson = {
-        name : newName
+        name : newName,
+        number: newNumber
       }
 
       setPersons(persons.concat(newPerson))
     }
     setNewName('')
+    setNewNumber('')
   }
 
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
   }
 
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
   return (
     <div>
       <Header text={'Phonebook'} />
-      <AddPersonForm formSubmit={addPerson} inputValue={newName} inputChange={handlePersonChange} />
+      <AddPersonForm 
+        formSubmit={addPerson} 
+        nameValue={newName} 
+        nameChange={handlePersonChange} 
+        numberValue={newNumber} 
+        numberChange={handleNumberChange} />
       <Header text={'Numbers'} />
-      <Numbers numbers={persons}/>
+      <Numbers persons={persons}/>
     </div>
   )
 

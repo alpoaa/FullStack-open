@@ -1,6 +1,6 @@
-const Numbers = ({numbers}) => {
+const Numbers = ({persons}) => {
 
-    if (numbers.length === 0) {
+    if (persons.length === 0) {
         return (
             <div>There is no numbers added</div>
         )
@@ -8,8 +8,8 @@ const Numbers = ({numbers}) => {
 
     return (
         <div>
-            {numbers.map((number, idx) => 
-                <p key={idx}>{number.name}</p>
+            {persons.map((person, idx) => 
+                <p key={idx}>{person.name} {person.number}</p>
             )}
         </div>
     )
