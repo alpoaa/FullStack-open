@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import service from './services/service'
 import Header from './components/Header'
 import AddPersonForm from './components/AddPersonForm'
@@ -45,6 +44,14 @@ const App = () => {
     setNewNumber('')
   }
 
+  const deletePerson = id => {
+    service
+      .deleteData(id)
+      .then(response => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+  }
+
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
   }
@@ -69,7 +76,7 @@ const App = () => {
         numberValue={newNumber} 
         numberChange={handleNumberChange} />
       <Header text='Numbers' />
-      <Numbers persons={persons} filterValue={filterName}/>
+      <Numbers persons={persons} filterValue={filterName} handleDeleteClick={deletePerson}/>
     </div>
   )
 
