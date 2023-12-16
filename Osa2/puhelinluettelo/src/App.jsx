@@ -8,11 +8,12 @@ import Notification from './components/Notification'
 
 const App = () => {
   
-  const [persons, setPersons]       = useState([])
-  const [newName, setNewName]       = useState('')
-  const [newNumber, setNewNumber]   = useState('')
-  const [filterName, setFilterName] = useState('')
-  const [message, setMessage]       = useState('')
+  const [persons, setPersons]         = useState([])
+  const [newName, setNewName]         = useState('')
+  const [newNumber, setNewNumber]     = useState('')
+  const [filterName, setFilterName]   = useState('')
+  const [message, setMessage]         = useState('')
+  const [messageType, setMessageType] = useState('')
 
   useEffect(() => {
     service
@@ -32,10 +33,11 @@ const App = () => {
           .updateData(personAdded.id, updatePerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
-            setMessage(`${returnedPerson.name} updated!`)
-            setTimeout(() => {
-              setMessage('')
-            }, 1500)
+            setNotification(`${returnedPerson.name} updated!`, 'informational')
+          })
+          .catch(error =>{
+            setNotification(`${personAdded.name} was already removed from server`, 'error')
+            setPersons(persons.filter(p => p.name !== personAdded.name))
           })
       }
     }
@@ -49,10 +51,7 @@ const App = () => {
         .createData(newPerson)
         .then(person => {
           setPersons(persons.concat(person))
-          setMessage(`${person.name} created!`)
-          setTimeout(() => {
-            setMessage('')
-          }, 1500)
+          setNotification(`${person.name} created!`, 'informational')
         })
     }
     setNewName('')
@@ -68,10 +67,7 @@ const App = () => {
         .deleteData(id)
         .then(response => {
           setPersons(persons.filter(person => person.id !== id))
-          setMessage(`${personDelete.name} removed!`)
-          setTimeout(() => {
-            setMessage('')
-          }, 1500)
+          setNotification(`${personDelete.name} removed!`, 'error')
         })
     }
   }
@@ -88,10 +84,20 @@ const App = () => {
     setFilterName(event.target.value)
   }
 
+  const setNotification = (notifMessage, notifType) => {
+    setMessage(notifMessage)
+    setMessageType(notifType)
+
+    setTimeout(() => {
+      setMessage('')
+      setMessageType('')
+    }, 1500)
+  }
+
   return (
     <div>
       <Header text='Phonebook' />
-      <Notification message={message} />
+      <Notification message={message} type={messageType}/>
       <Filter filterName={filterName} filterChange={handleFilterNameChange}/>
       <Header text= 'Add new' />
       <AddPersonForm 
