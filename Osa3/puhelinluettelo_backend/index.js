@@ -45,10 +45,11 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info', (request, respomse) => {
     const currentDate   = new Date()
-    const phonebookSize = persons.length
 
-    respomse.send(`<p>Phonebook has info for ${phonebookSize} people</p><p>${currentDate}</p>`)
-
+    Number.find({})
+        .then(numbers => {
+            respomse.send(`<p>Phonebook has info for ${numbers.length} people</p><p>${currentDate}</p>`)
+        })
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
