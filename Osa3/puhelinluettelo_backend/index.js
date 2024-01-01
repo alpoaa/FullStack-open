@@ -6,6 +6,20 @@ const app     = express()
 const cors    = require('cors')
 const Number  = require('./models/numbers')
 
+const errorHandler = (error, request, response, next) => {
+    console.log(error)
+
+    if (error.name === 'CastError') {
+        return response.status(400).send({error: 'Malformatted id'})
+    }
+
+    next(error)
+}
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({error: 'Unknown endpoint'})
+}
+
 app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
@@ -37,11 +51,16 @@ app.get('/info', (request, respomse) => {
 
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
     Number.findById(request.params.id)
         .then(person => {
-            response.json(person)
+            if (person) {
+                response.json(person)
+            } else {
+                response.status(404).end()
+            }
         })
+        .catch(error => next(error))
     /*
     const personId = Number(request.params.id)
     const person   = persons.find(person => person.id === personId)
@@ -83,7 +102,13 @@ app.post('/api/persons', (request, response) => {
         })
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
+    Number.findByIdAndDelete(request.params.id)
+        .then(result => {
+            response.status(204).end()
+        })
+        .catch(error => next(error))
+    /*
     const personId = Number(request.params.id)
     const person   = persons.find(person => person.id === personId)
 
@@ -93,7 +118,11 @@ app.delete('/api/persons/:id', (request, response) => {
     } else {
         response.status(404).end()
     }
+    */
 })
+
+app.use(unknownEndpoint)
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
