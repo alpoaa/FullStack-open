@@ -121,6 +121,21 @@ app.delete('/api/persons/:id', (request, response, next) => {
     */
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+    const requestBody = request.body
+
+    const updatedPerson = {
+        name: requestBody.name,
+        number: requestBody.number
+    }
+
+    Number.findByIdAndUpdate(request.params.id, updatedPerson, {new: true})
+        .then(updatePerson => {
+            response.json(updatePerson)
+        })
+        .catch(error => next(error))
+})
+
 app.use(unknownEndpoint)
 app.use(errorHandler)
 
