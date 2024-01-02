@@ -7,19 +7,19 @@ const cors    = require('cors')
 const Number  = require('./models/numbers')
 
 const errorHandler = (error, request, response, next) => {
-    console.log(error)
+  console.log(error)
 
-    if (error.name === 'CastError') {
-        return response.status(400).send({error: 'Malformatted id'})
-    } else if (error.name === 'ValidationError') {
-        return response.status(400).json({error: error.message})
-    }
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'Malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
 
-    next(error)
+  next(error)
 }
 
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({error: 'Unknown endpoint'})
+  response.status(404).send({ error: 'Unknown endpoint' })
 }
 
 app.use(express.static('build'))
@@ -34,36 +34,36 @@ let persons = []
 //const generateNewPersonId = () => Math.floor(Math.random() * 1000)
 
 app.get('/', (request, response) => {
-    response.send('<h4>Osa3<h4>')
+  response.send('<h4>Osa3<h4>')
 })
 
 app.get('/api/persons', (request, response) => {
-    //response.json(persons)
-    Number.find({})
-        .then(persons => {
-            response.json(persons)
-        })
+  //response.json(persons)
+  Number.find({})
+    .then(persons => {
+      response.json(persons)
+    })
 })
 
 app.get('/info', (request, respomse) => {
-    const currentDate   = new Date()
+  const currentDate   = new Date()
 
-    Number.find({})
-        .then(numbers => {
-            respomse.send(`<p>Phonebook has info for ${numbers.length} people</p><p>${currentDate}</p>`)
-        })
+  Number.find({})
+    .then(numbers => {
+      respomse.send(`<p>Phonebook has info for ${numbers.length} people</p><p>${currentDate}</p>`)
+    })
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
-    Number.findById(request.params.id)
-        .then(person => {
-            if (person) {
-                response.json(person)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch(error => next(error))
+  Number.findById(request.params.id)
+    .then(person => {
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
     /*
     const personId = Number(request.params.id)
     const person   = persons.find(person => person.id === personId)
@@ -77,41 +77,42 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.post('/api/persons', (request, response, next) => {
-    const requestBody = request.body
+  const requestBody = request.body
 
-    if (!requestBody) {
-        return response.status(400).json({error: 'no request body'})
-    }
+  if (!requestBody) {
+    return response.status(400).json({ error: 'no request body' })
+  }
 
-    if (!requestBody.name || !requestBody.number) {
-        return response.status(400).json({error: 'missing name or number'})
-    }
+  if (!requestBody.name || !requestBody.number) {
+    return response.status(400).json({ error: 'missing name or number' })
+  }
 
-    const personExists = persons.find(person => person.name === requestBody.name)
+  const personExists = persons.find(person => person.name === requestBody.name)
 
-    if (personExists) {
-        return response.status(400).json({error: 'number already exists'})
-    }
-  
-    const newPerson = new Number({
-        name: requestBody.name,
-        number: requestBody.number,
+  if (personExists) {
+    return response.status(400).json({ error: 'number already exists' })
+  }
+
+  const newPerson = new Number({
+    name: requestBody.name,
+    number: requestBody.number,
+  })
+
+  //persons = persons.concat(newPerson)
+  newPerson.save()
+    .then(savedPerson => {
+      response.json(savedPerson)
     })
-
-    //persons = persons.concat(newPerson)
-    newPerson.save()
-        .then(savedPerson => {
-            response.json(savedPerson)
-        })
-        .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    Number.findByIdAndDelete(request.params.id)
-        .then(result => {
-            response.status(204).end()
-        })
-        .catch(error => next(error))
+  Number.findByIdAndDelete(request.params.id)
+    // eslint-disable-next-line no-unused-vars
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
     /*
     const personId = Number(request.params.id)
     const person   = persons.find(person => person.id === personId)
@@ -126,18 +127,18 @@ app.delete('/api/persons/:id', (request, response, next) => {
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-    const requestBody = request.body
+  const requestBody = request.body
 
-    const updatedPerson = {
-        name: requestBody.name,
-        number: requestBody.number
-    }
+  const updatedPerson = {
+    name: requestBody.name,
+    number: requestBody.number
+  }
 
-    Number.findByIdAndUpdate(request.params.id, updatedPerson, {new: true, runValidators: true, context: 'query'})
-        .then(updatePerson => {
-            response.json(updatePerson)
-        })
-        .catch(error => next(error))
+  Number.findByIdAndUpdate(request.params.id, updatedPerson, { new: true, runValidators: true, context: 'query' })
+    .then(updatePerson => {
+      response.json(updatePerson)
+    })
+    .catch(error => next(error))
 })
 
 app.use(unknownEndpoint)
@@ -145,5 +146,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
