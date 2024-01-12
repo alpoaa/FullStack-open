@@ -37,12 +37,28 @@ const multipleBlogsList = [
       __v: 0
     },
     {
-      _id: "5a422bc61b54a676234d17fc",
+      _id: "5a422bc61b5434376234d17fc",
       title: "Type wars",
       author: "Robert C. Martin",
       url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
       likes: 2,
       __v: 0
+    },
+    {
+        _id: "5a4dfgdbc61b54a676234d17ff",
+        title: "Magic wars",
+        author: "Robert C. Martin",
+        url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/MagicWars.html",
+        likes: 4,
+        __v: 0
+    },
+    {
+    _id: "52322bc61a676ddfd234d17fc",
+    title: "Var wars",
+    author: "Robert C. Martin",
+    url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/VarWars.html",
+    likes: 8,
+    __v: 0
     }
 ]
 
@@ -66,8 +82,15 @@ describe('total like tests', () => {
 })
 
 describe('favorite blog tests', () => {
-    test.only('favorite blog test with multiple blog list', () => {
+    test('favorite blog test with multiple blog list', () => {
         const result = listHelper.favoriteBlog(multipleBlogsList)
         expect(result).toEqual(multipleBlogsList[2])
+    })
+})
+
+describe('most blogs tests', () => {
+    test.only('author with most blogs with multiple blog list', () => {
+        const result = listHelper.mostBlogs(multipleBlogsList)
+        expect(result).toEqual({author: "Robert C. Martin", blogCount: 3})
     })
 })
