@@ -60,6 +60,7 @@ const multipleBlogsList = [
     likes: 8,
     __v: 0
     }
+    
 ]
 
 test('dummy returns one', () => {
@@ -89,8 +90,15 @@ describe('favorite blog tests', () => {
 })
 
 describe('most blogs tests', () => {
-    test.only('author with most blogs with multiple blog list', () => {
+    test('author with most blogs with multiple blog list', () => {
         const result = listHelper.mostBlogs(multipleBlogsList)
         expect(result).toEqual({author: "Robert C. Martin", blogCount: 3})
+    })
+})
+
+describe('most likes tests', () => {
+    test.only('author with most likes with multiple blog list', () => {
+        const result = listHelper.mostLikes(multipleBlogsList)
+        expect(result).toEqual({author: "Edsger W. Dijkstra", totalLikes: 17})
     })
 })

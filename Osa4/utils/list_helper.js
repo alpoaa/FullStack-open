@@ -19,4 +19,16 @@ const mostBlogs = (blogs) => {
     return {author: orderedAuthorGroups[0][0].author, blogCount: orderedAuthorGroups[0].length}
 }
 
-module.exports = {dummy, totalLikes, favoriteBlog, mostBlogs}
+const mostLikes = (blogs) => {
+    let   authorLikes  = []
+    const authorGroups = lodash.groupBy(blogs, 'author')
+
+    lodash.forEach(authorGroups, (authorBlogs, authorKey) => {
+        authorLikes = lodash.concat(authorLikes, {author: authorKey, totalLikes: totalLikes(authorBlogs)})
+    })
+
+    const authorMostLikes = lodash.orderBy(authorLikes, 'totalLikes', 'asc')
+    return authorMostLikes[authorMostLikes.length -1]
+}
+
+module.exports = {dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes}
