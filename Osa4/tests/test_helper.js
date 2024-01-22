@@ -23,11 +23,17 @@ const testBlog = {
     likes: 10
 }
 
+const testBlogNoLikes = {
+    title:"Testblog with no likes",
+    author: "Test blog",
+    url:"https://google.com",
+}
+
 const blogsInDb = async() => {
     const blogs = await Blog.find({})
     return blogs.map(blog => blog.toJSON())
 }
 
 module.exports = {
-    initialBlogs, testBlog, blogsInDb
+    initialBlogs, testBlog, testBlogNoLikes, blogsInDb
 }
