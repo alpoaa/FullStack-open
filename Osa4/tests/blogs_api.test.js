@@ -89,6 +89,24 @@ describe('API tests relating to DELETE- method', () => {
     })
 })
 
+describe('API tests relating to PUT- method', () => {
+    test('Updating the blog', async() => {
+        const testBlogs = await testHelper.blogsInDb()
+
+        let testBlogUpdate   = testBlogs[0]
+        testBlogUpdate.likes = 20
+
+        await api
+            .put(`/api/blogs/${testBlogUpdate.id}`)
+            .send(testBlogUpdate)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const testBlogsUpdated = await testHelper.blogsInDb()
+        const updatedBlog      = testBlogsUpdated.find(blog => blog.id === testBlogUpdate.id)
+        expect(updatedBlog.likes).not.toEqual(testHelper.initialBlogs[0].likes)
+    })
+})
 
 //after all tests has been performed, close the connection to database
 afterAll(async() => {
