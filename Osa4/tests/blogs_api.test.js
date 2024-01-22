@@ -23,6 +23,16 @@ test('All the blogs are found', async() => {
     expect(response.body).toHaveLength(testHelper.initialBlogs.length)
 })
 
+test.only('Id value has been defined to all blogs', async() => {
+    const response = await api.get('/api/blogs')
+    const blogs    = response.body
+
+    blogs.forEach(blog =>{
+        expect(blog).toHaveProperty('id')
+        expect(blog.id).toBeDefined()
+    })
+})
+
 //after all tests has been performed, close the connection to database
 afterAll(async() => {
     await mongoose.connection.close()
