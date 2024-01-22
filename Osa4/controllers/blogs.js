@@ -32,7 +32,7 @@ blogsRouter.post('/', async(request, response, next) => {
 
     try {
         const savedBlog = await newBlog.save()
-        response.json(201).json(savedBlog)
+        response.status(201).json(savedBlog)
     } catch (exception) {
         next(exception)
     }

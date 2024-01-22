@@ -23,7 +23,7 @@ test('All the blogs are found', async() => {
     expect(response.body).toHaveLength(testHelper.initialBlogs.length)
 })
 
-test.only('Id value has been defined to all blogs', async() => {
+test('Id value has been defined to all blogs', async() => {
     const response = await api.get('/api/blogs')
     const blogs    = response.body
 
@@ -31,6 +31,17 @@ test.only('Id value has been defined to all blogs', async() => {
         expect(blog).toHaveProperty('id')
         expect(blog.id).toBeDefined()
     })
+})
+
+test('Add blog to list', async() => {
+    await api
+        .post('/api/blogs')
+        .send(testHelper.testBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+    
+    const testBlogs = await testHelper.blogsInDb()
+    expect(testBlogs).toHaveLength(testHelper.initialBlogs.length + 1)
 })
 
 //after all tests has been performed, close the connection to database
