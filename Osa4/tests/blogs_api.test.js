@@ -44,7 +44,7 @@ test('Add blog to list', async() => {
     expect(testBlogs).toHaveLength(testHelper.initialBlogs.length + 1)
 })
 
-test.only('Add blog with no likes and check default value', async() => {
+test('Add blog with no likes and check default value', async() => {
     await api
         .post('/api/blogs')
         .send(testHelper.testBlogNoLikes)
@@ -53,6 +53,17 @@ test.only('Add blog with no likes and check default value', async() => {
     const testBlogs   = await testHelper.blogsInDb()
     const blogNoLikes = testBlogs.find(testBlog => testBlog.title === testHelper.testBlogNoLikes.title && testBlog.author === testHelper.testBlogNoLikes.author)
     expect(blogNoLikes.likes).toBe(0)
+})
+
+test('Blog without title or author is not added to database', async() => {
+    await api
+        .post('/api/blogs')
+        .send(testHelper.testBlogInvalid)
+        .expect(400)
+
+    const testBlogs = await testHelper.blogsInDb()
+    expect(testBlogs).toHaveLength(testHelper.initialBlogs.length)
+
 })
 
 //after all tests has been performed, close the connection to database
