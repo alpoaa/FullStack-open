@@ -56,7 +56,6 @@ blogsRouter.post('/', async(request, response, next) => {
 })
 
 blogsRouter.delete('/:id', async(request, response, next) => {
-    const body = request.body
     const decodedToken = jsonWebToken.verify(request.token, process.env.SECRET)
 
     if (!decodedToken.id) {
@@ -64,8 +63,12 @@ blogsRouter.delete('/:id', async(request, response, next) => {
     }
     try {
         const blog = await Blog.findById(request.params.id)
-    
-        if (blog.user.toString() === decodedToken.id.toString()) {
+
+        if (!blog) {
+            return response.status(400).json({ error: 'Blog that is about to delete, does not exists in database'})
+        }
+
+        if (blog.user.toString() === request.userId) {
             await Blog.findByIdAndRemove(request.params.id)
             response.status(204).end()
         } else {
