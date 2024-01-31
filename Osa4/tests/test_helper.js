@@ -1,4 +1,6 @@
-const Blog = require('../models/blog')
+const bcrypt = require('bcrypt')
+const Blog   = require('../models/blog')
+const User   = require('../models/user')
 
 //always setup to tests some blogs to database
 const initialBlogs = [
@@ -15,6 +17,24 @@ const initialBlogs = [
         likes: 6
     }
 ]
+
+const testUser = {
+    username: 'testUser',
+    name: 'test user',
+    password: 'salasana'
+}
+
+const testUserInvalidUsername = {
+    username: 'te',
+    name: 'invalid test user',
+    password: 'salasana'
+}
+
+const testUserInvalidPassword = {
+    username: 'testUser2',
+    name: 'test user 2',
+    password: 'sa'
+}
 
 const testBlog = {
     title:"ValidBlog",
@@ -39,6 +59,11 @@ const blogsInDb = async() => {
     return blogs.map(blog => blog.toJSON())
 }
 
+const usersInDb = async() => {
+    const users = await User.find({})
+    return users.map(user => user.toJSON())
+}
+
 module.exports = {
-    initialBlogs, testBlog, testBlogNoLikes, testBlogInvalid, blogsInDb
+    initialBlogs, testBlog, testBlogNoLikes, testBlogInvalid, blogsInDb, usersInDb, testUser, testUserInvalidPassword, testUserInvalidUsername
 }
