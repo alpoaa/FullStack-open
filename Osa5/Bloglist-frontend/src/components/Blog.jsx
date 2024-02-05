@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 const Blog = ({ blog }) => {
-    console.log('blogi: ', blog)
     return (
         <div>
             {blog.title} {blog.author}
