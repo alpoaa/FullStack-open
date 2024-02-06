@@ -2,7 +2,6 @@
 import '../styles/notification.css'
 
 const Notification = ({ notification, notificationType }) => {
-    console.log('ilmoitus tyyppi: ', notificationType)
     if (!notification) {
         return null
     }

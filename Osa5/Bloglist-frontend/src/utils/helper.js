@@ -4,6 +4,8 @@ const loggedOut             = 'Logged out!'
 const notificationTypeInfo  = 'info'
 const notificationTypeError = 'error'
 const errorCredentials      = 'Failed credentials. Check username or password'
+const createdNewBlog        = 'New blog created!'
+const errorBlogValues       = 'Inserted blog values are not valid. Check the title and author'
 
 export default { 
     storageName, 
@@ -11,5 +13,7 @@ export default {
     loggedOut, 
     notificationTypeInfo, 
     notificationTypeError,
-    errorCredentials
+    errorCredentials,
+    createdNewBlog, 
+    errorBlogValues
 }
