@@ -7,7 +7,6 @@ const Blog = ({ blog }) => {
     const [viewAll, setViewAll] = useState(false)
 
     const setShowAllVisibility = () => {
-        console.log('blogin nakyvyys: ', blog.title, viewAll)
         setViewAll(!viewAll)
     }
 
@@ -20,7 +19,9 @@ const Blog = ({ blog }) => {
             {viewAll &&  <div className="blogdetails">
                 <p>{blog.author}</p>
                 <p>{blog.url}</p>
+                <p>Likes: {blog.likes}</p>
                 <p>{blog.user.name}</p>
+                <button>Like</button>
             </div>
             }
         </div>
