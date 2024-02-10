@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
+import '../styles/logout.css'
+
 const Logout = ({ user, logoutClick }) => {
     if (!user) {
         return null
     }
 
     return (
-        <div>
+        <div className='logoutmain'>
             <p>Logged in: {user.username}</p>
             <button onClick={logoutClick}>logout</button>
         </div>

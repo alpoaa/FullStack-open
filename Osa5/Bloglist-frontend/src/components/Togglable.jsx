@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 import { useState, useImperativeHandle, forwardRef } from "react"
 
+import '../styles/togglable.css'
+
 const Togglable = forwardRef((props, ref) => {
     const [visible, setVisible] = useState(false)
 
@@ -15,7 +17,7 @@ const Togglable = forwardRef((props, ref) => {
     })
 
     return (
-        <div>
+        <div className="togglablemain">
             {!visible && <div> 
                 <button onClick={toggleVisibility}>{props.buttonLabel}</button>
             </div>}

@@ -1,0 +1,30 @@
+.blogmain {
+    border-style: solid;
+    border-color: rgb(49, 104, 244);
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.blogmain button {
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #2ed99b;
+    border: none;
+    border-radius: 10px;
+}
+
+.blogmain button:hover {
+    background-color: rgba(73, 73, 251, 0.753);
+
+}
+
+.blogmain button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

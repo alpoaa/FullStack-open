@@ -1,0 +1,28 @@
+.loginform {
+    margin: 5px;
+    padding: 5px;
+}
+
+.loginform button {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #2ed99b;
+    border: none;
+    border-radius: 10px;
+}
+
+.loginform button:hover {
+    background-color: rgba(73, 73, 251, 0.753);
+
+}
+
+.loginform button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

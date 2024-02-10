@@ -3,6 +3,7 @@
 
 import { useState } from "react"
 
+import '../styles/login.css'
 import Togglable from './Togglable'
 
 const Login = ( { user, login }) => {
@@ -29,7 +30,7 @@ const Login = ( { user, login }) => {
     }
     return (
         <Togglable buttonLabel="Open login">
-            <form onSubmit={userLogin}>
+            <form className="loginform" onSubmit={userLogin}>
                 <h4>Log in to application</h4>
                 <div>
                     Username:<input type="text" value={username} name="Username" onChange={onUsernameChange}/>
