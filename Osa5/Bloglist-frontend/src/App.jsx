@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -8,14 +8,11 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Notification from './components/Notification'
 import CreateBlog from './components/CreateBlog'
-import Togglable from './components/Togglable'
 
 import helper from './utils/helper'
 
 const App = () => {
   const [blogs, setBlogs]                       = useState([])
-  const [username, setUsername]                 = useState('')
-  const [password, setPassword]                 = useState('')
   const [user, setUser]                         = useState(null)
   const [notification, setNotification]         = useState('')
   const [nofificationType, setNotificationType] = useState('')
@@ -36,16 +33,13 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async(event) => {
-    event.preventDefault()
+  const handleLogin = async(userCredentialsObj) => {
 
     try {
-      const loginUser = await loginService.login({ username, password })
+      const loginUser = await loginService.login(userCredentialsObj)
       blogService.setToken(loginUser.loginToken)
       window.localStorage.setItem(helper.storageName, JSON.stringify(loginUser))
       setUser(loginUser)
-      setUsername('')
-      setPassword('')
       handleNotification(helper.loggedIn, helper.notificationTypeInfo)
       
     } catch (exception) {
@@ -54,7 +48,6 @@ const App = () => {
   }
 
   const handleCreateBlog = async(newBlogObj) => {
-    
     try {
       const createdBlog = await blogService.createBlog(newBlogObj)
       setBlogs(blogs.concat(createdBlog))
@@ -64,10 +57,6 @@ const App = () => {
       handleNotification(helper.errorBlogValues, helper.notificationTypeError)
     }
   }
-
-  const onUsernameChange = (event) => setUsername(event.target.value)
-
-  const onPasswordChange = (event) => setPassword(event.target.value)
 
   const handleLogout = () => {
     window.localStorage.removeItem(helper.storageName)
@@ -89,21 +78,9 @@ const App = () => {
   return (
     <div>
       <Notification notification={notification} notificationType={nofificationType} />
-      <Login 
-        user={user}
-        username={username}
-        password={password}
-        onLogin={handleLogin}
-        onUsernameChange={onUsernameChange}
-        onPasswordChange={onPasswordChange}
-      />
+      <Login user={user} login={handleLogin}/>
       <Logout user={user} logoutClick={handleLogout}/>
-      <Togglable buttonLabel="create new">
-        <CreateBlog 
-          user={user}
-          createBlog={handleCreateBlog}
-        />
-      </Togglable>
+      <CreateBlog user={user} createBlog={handleCreateBlog}  />
       <BlogsList user={user} blogs={blogs} />
     </div>
   )

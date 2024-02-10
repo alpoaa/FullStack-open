@@ -3,6 +3,8 @@
 
 import { useState } from "react"
 
+import Togglable from './Togglable'
+
 const CreateBlog = ({ user, createBlog }) => {
     const [newBlogTitle, setNewBlogTitle]         = useState('')
     const [newBlogAuthor, setNewBlogAuthor]       = useState('')
@@ -34,19 +36,21 @@ const CreateBlog = ({ user, createBlog }) => {
     }
 
     return (
-        <form onSubmit={addBlog}>
-            <h4>Create new blog</h4>
-            <div>
-                <input type="text" placeholder="Blog title" value={newBlogTitle} onChange={onNewBlogTitleChange}/>
-            </div>
-            <div>
-                <input type="text" placeholder="Author" value={newBlogAuthor} onChange={onNewBlogAuthorChange}/>
-            </div>
-            <div>
-                <input type="text" placeholder="Url" value={newBlogUrl} onChange={onNewBlogUrlChange}/>
-            </div>
-            <button type="submit">Create</button>
-        </form>
+        <Togglable buttonLabel="create new">
+            <form onSubmit={addBlog}>
+                <h4>Create new blog</h4>
+                <div>
+                    <input type="text" placeholder="Blog title" value={newBlogTitle} onChange={onNewBlogTitleChange}/>
+                </div>
+                <div>
+                    <input type="text" placeholder="Author" value={newBlogAuthor} onChange={onNewBlogAuthorChange}/>
+                </div>
+                <div>
+                    <input type="text" placeholder="Url" value={newBlogUrl} onChange={onNewBlogUrlChange}/>
+                </div>
+                <button type="submit">Create</button>
+            </form>
+        </Togglable>
     )
 }
 
