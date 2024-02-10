@@ -19,9 +19,7 @@ const App = () => {
   const [user, setUser]                         = useState(null)
   const [notification, setNotification]         = useState('')
   const [nofificationType, setNotificationType] = useState('')
-  const [newBlogTitle, setNewBlogTitle]         = useState('')
-  const [newBlogAuthor, setNewBlogAuthor]       = useState('')
-  const [newBlogUrl, setNewBlogUrl]             = useState('') 
+
 
   useEffect(() => {
     blogService.getAll()
@@ -55,22 +53,12 @@ const App = () => {
     }
   }
 
-  const handleCreateBlog = async(event) => {
-    event.preventDefault()
-
+  const handleCreateBlog = async(newBlogObj) => {
+    
     try {
-      const newBlog = {
-        title: newBlogTitle,
-        author: newBlogAuthor,
-        url: newBlogUrl
-      }
+      const createdBlog = await blogService.createBlog(newBlogObj)
+      setBlogs(blogs.concat(createdBlog))
 
-      const createdBlog = await blogService.createBlog(newBlog)
-      const setNewBlogs = blogs.concat(createdBlog)
-      setBlogs(setNewBlogs)
-      setNewBlogTitle('')
-      setNewBlogAuthor('')
-      setNewBlogUrl('')
       handleNotification(helper.createdNewBlog, helper.notificationTypeInfo)
     } catch (exception) {
       handleNotification(helper.errorBlogValues, helper.notificationTypeError)
@@ -80,12 +68,6 @@ const App = () => {
   const onUsernameChange = (event) => setUsername(event.target.value)
 
   const onPasswordChange = (event) => setPassword(event.target.value)
-
-  const onNewBlogTitleChange = (event) => setNewBlogTitle(event.target.value)
-
-  const onNewBlogAuthorChange = (event) => setNewBlogAuthor(event.target.value)
-
-  const onNewBlogUrlChange = (event) => setNewBlogUrl(event.target.value)
 
   const handleLogout = () => {
     window.localStorage.removeItem(helper.storageName)
@@ -119,15 +101,9 @@ const App = () => {
       <Togglable buttonLabel="create new">
         <CreateBlog 
           user={user}
-          onBlogCreate={handleCreateBlog}
-          newBlogTitle={newBlogTitle}
-          newBlogAuthor={newBlogAuthor}
-          newBlogUrl={newBlogUrl}
-          onNewBlogTitleChange={onNewBlogTitleChange}
-          onNewBlogAuthorChange={onNewBlogAuthorChange}
-          onNewBlogUrlChange={onNewBlogUrlChange}
+          createBlog={handleCreateBlog}
         />
-        </Togglable>
+      </Togglable>
       <BlogsList user={user} blogs={blogs} />
     </div>
   )

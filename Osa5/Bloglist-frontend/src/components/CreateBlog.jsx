@@ -1,11 +1,40 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-const CreateBlog = ({ user, onBlogCreate, newBlogTitle, newBlogAuthor, newBlogUrl, onNewBlogTitleChange, onNewBlogAuthorChange, onNewBlogUrlChange }) => {
+
+import { useState } from "react"
+
+const CreateBlog = ({ user, createBlog }) => {
+    const [newBlogTitle, setNewBlogTitle]         = useState('')
+    const [newBlogAuthor, setNewBlogAuthor]       = useState('')
+    const [newBlogUrl, setNewBlogUrl]             = useState('') 
+
+    const onNewBlogTitleChange = (event) => setNewBlogTitle(event.target.value)
+
+    const onNewBlogAuthorChange = (event) => setNewBlogAuthor(event.target.value)
+
+    const onNewBlogUrlChange = (event) => setNewBlogUrl(event.target.value)
+
+    const addBlog = (event) => {
+        event.preventDefault()
+        
+        createBlog({
+            title: newBlogTitle,
+            author: newBlogAuthor,
+            url: newBlogUrl
+        })
+
+        setNewBlogTitle('')
+        setNewBlogAuthor('')
+        setNewBlogUrl('')
+        
+    }
+    
     if (!user) {
         return null
     }
 
     return (
-        <form onSubmit={onBlogCreate}>
+        <form onSubmit={addBlog}>
             <h4>Create new blog</h4>
             <div>
                 <input type="text" placeholder="Blog title" value={newBlogTitle} onChange={onNewBlogTitleChange}/>
