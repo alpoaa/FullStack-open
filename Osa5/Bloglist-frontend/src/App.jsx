@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -8,6 +8,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Notification from './components/Notification'
 import CreateBlog from './components/CreateBlog'
+import Togglable from './components/Togglable'
 
 import helper from './utils/helper'
 
@@ -115,16 +116,18 @@ const App = () => {
         onPasswordChange={onPasswordChange}
       />
       <Logout user={user} logoutClick={handleLogout}/>
-      <CreateBlog 
-        user={user}
-        onBlogCreate={handleCreateBlog}
-        newBlogTitle={newBlogTitle}
-        newBlogAuthor={newBlogAuthor}
-        newBlogUrl={newBlogUrl}
-        onNewBlogTitleChange={onNewBlogTitleChange}
-        onNewBlogAuthorChange={onNewBlogAuthorChange}
-        onNewBlogUrlChange={onNewBlogUrlChange}
-      />
+      <Togglable buttonLabel="create new">
+        <CreateBlog 
+          user={user}
+          onBlogCreate={handleCreateBlog}
+          newBlogTitle={newBlogTitle}
+          newBlogAuthor={newBlogAuthor}
+          newBlogUrl={newBlogUrl}
+          onNewBlogTitleChange={onNewBlogTitleChange}
+          onNewBlogAuthorChange={onNewBlogAuthorChange}
+          onNewBlogUrlChange={onNewBlogUrlChange}
+        />
+        </Togglable>
       <BlogsList user={user} blogs={blogs} />
     </div>
   )
