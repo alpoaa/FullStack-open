@@ -20,7 +20,9 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll()
-      .then(blogs => setBlogs(blogs))
+      .then(blogs => {
+        setBlogs(blogs)
+      })
   }, [])
 
   useEffect(() => {
@@ -50,8 +52,11 @@ const App = () => {
   const handleCreateBlog = async(newBlogObj) => {
     try {
       const createdBlog = await blogService.createBlog(newBlogObj)
-      setBlogs(blogs.concat(createdBlog))
 
+      if (createdBlog) {
+        const allBlogs = await blogService.getAll()
+        setBlogs(allBlogs)
+      }
       handleNotification(helper.createdNewBlog, helper.notificationTypeInfo)
     } catch (exception) {
       handleNotification(helper.errorBlogValues, helper.notificationTypeError)

@@ -7,24 +7,26 @@
 }
 
 .blogmain button {
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding: 5px;
     font-size: 15px;
     text-align: center;
     cursor: pointer;
     outline: none;
     color: #fff;
-    background-color: #2ed99b;
+    background-color: #d9422e;
     border: none;
     border-radius: 10px;
 }
 
 .blogmain button:hover {
-    background-color: rgba(73, 73, 251, 0.753);
+    background-color: rgba(251, 165, 73, 0.753);
 
 }
 
 .blogmain button:active {
-    background-color: #3e8e41;
+    background-color: #d26935;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
