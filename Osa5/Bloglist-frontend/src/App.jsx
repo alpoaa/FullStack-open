@@ -36,7 +36,6 @@ const App = () => {
   }, [])
 
   const handleLogin = async(userCredentialsObj) => {
-
     try {
       const loginUser = await loginService.login(userCredentialsObj)
       blogService.setToken(loginUser.loginToken)
@@ -52,10 +51,10 @@ const App = () => {
   const handleCreateBlog = async(newBlogObj) => {
     try {
       const createdBlog = await blogService.createBlog(newBlogObj)
-
+      
       if (createdBlog) {
-        const allBlogs = await blogService.getAll()
-        setBlogs(allBlogs)
+        const newBlog  = await blogService.getBlog(createdBlog.id)
+        setBlogs(blogs.concat(newBlog))
       }
       handleNotification(helper.createdNewBlog, helper.notificationTypeInfo)
     } catch (exception) {
@@ -80,13 +79,27 @@ const App = () => {
     }, 2000)
   }
 
+  const handleBlogLike = async(updatedObj, updatedBlogId) => {
+    try {
+      const updatedBlog = await blogService.updateBlog(updatedObj, updatedBlogId)
+      
+      if (updatedBlog) {
+        const updateBlog  = await blogService.getBlog(updatedBlogId)
+        const newBlogs    = blogs.map(blog => blog.id === updatedBlogId ? {...blog, likes: updateBlog.likes} : blog)
+        setBlogs(newBlogs)
+      }
+    } catch (exception) {
+      handleNotification(helper.errorUpdateFailure, helper.notificationTypeError)
+    }
+  }
+
   return (
     <div>
       <Notification notification={notification} notificationType={nofificationType} />
       <Login user={user} login={handleLogin}/>
       <Logout user={user} logoutClick={handleLogout}/>
       <CreateBlog user={user} createBlog={handleCreateBlog}  />
-      <BlogsList user={user} blogs={blogs} />
+      <BlogsList user={user} blogs={blogs} likeBlog={handleBlogLike}/>
     </div>
   )
 }

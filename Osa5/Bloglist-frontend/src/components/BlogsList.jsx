@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Blog from './Blog'
 
-const BlogsList = ({ user, blogs }) =>  {
+const BlogsList = ({ user, blogs, likeBlog }) =>  {
     if (!user) {
         return null
     }
@@ -11,7 +11,7 @@ const BlogsList = ({ user, blogs }) =>  {
             <h4>Blogeja</h4>
             {
                 blogs.map(blog => 
-                    <Blog key={blog.id} blog={blog} />
+                    <Blog key={blog.id} blog={blog} likeBlog={likeBlog} />
                 )
             }
         </div>
