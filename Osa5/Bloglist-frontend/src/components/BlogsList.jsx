@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import Blog from './Blog'
 
-const BlogsList = ({ user, blogs, likeBlog, sortBlogs }) =>  {
+const BlogsList = ({ user, blogs, likeBlog, deleteBlog }) =>  {
     const [sortBlogBy, setSortBlogBy] = useState('')
 
     if (!user) {
@@ -37,7 +37,7 @@ const BlogsList = ({ user, blogs, likeBlog, sortBlogs }) =>  {
             <h4>Blogeja</h4>
             {
                 sortedBlogs().map(blog => 
-                    <Blog key={blog.id} blog={blog} likeBlog={likeBlog} />
+                    <Blog key={blog.id} user={user} blog={blog} likeBlog={likeBlog} deleteBlog={deleteBlog}/>
                 )
             }
         </div>

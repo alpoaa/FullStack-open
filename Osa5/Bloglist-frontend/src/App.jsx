@@ -92,6 +92,19 @@ const App = () => {
       handleNotification(helper.errorUpdateFailure, helper.notificationTypeError)
     }
   }
+
+  const handleBlogDelete = async(deleteBlog) => {
+    try {
+      if (window.confirm(`Remove blog ${deleteBlog.title} by ${deleteBlog.author}`)) {
+        const response = await blogService.deleteBlog(deleteBlog.id)
+        if (response === 204) {
+          setBlogs(blogs.filter(blog => blog.id !== deleteBlog.id))
+        }
+      }
+    } catch (exception) {
+      handleNotification(exception.message, helper.notificationTypeError)
+    }
+  }
   
   return (
     <div>
@@ -99,7 +112,7 @@ const App = () => {
       <Login user={user} login={handleLogin}/>
       <Logout user={user} logoutClick={handleLogout}/>
       <CreateBlog user={user} createBlog={handleCreateBlog}  />
-      <BlogsList user={user} blogs={blogs} likeBlog={handleBlogLike} />
+      <BlogsList user={user} blogs={blogs} likeBlog={handleBlogLike} deleteBlog={handleBlogDelete}/>
     </div>
   )
 }

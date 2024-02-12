@@ -3,7 +3,7 @@
 import { useState } from "react"
 import '../styles/blog.css'
 
-const Blog = ({ blog, likeBlog }) => {
+const Blog = ({ user, blog, likeBlog, deleteBlog }) => {
     const [viewAll, setViewAll] = useState(false)
 
     const setShowAllVisibility = () => setViewAll(!viewAll)
@@ -18,6 +18,11 @@ const Blog = ({ blog, likeBlog }) => {
         likeBlog(updateBlogObj, blog.id)
     }
 
+    const handleDeleteClick = () => deleteBlog(blog)
+    
+
+    const showDeleteButton = { display: blog.user.username === user.username ? '' : 'none' }
+
     return (
         <div className="blogmain">
             <div className="blogtitle">
@@ -30,6 +35,9 @@ const Blog = ({ blog, likeBlog }) => {
                 <p>Likes: {blog.likes}</p>
                 <p>{blog.user.name}</p>
                 <button onClick={handleLikeClick}>Like</button>
+                <div style={showDeleteButton}>
+                    <button onClick={handleDeleteClick}>Delete</button>
+                </div>
             </div>
             }
         </div>
