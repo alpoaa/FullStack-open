@@ -6,9 +6,7 @@ import '../styles/blog.css'
 const Blog = ({ blog, likeBlog }) => {
     const [viewAll, setViewAll] = useState(false)
 
-    const setShowAllVisibility = () => {
-        setViewAll(!viewAll)
-    }
+    const setShowAllVisibility = () => setViewAll(!viewAll)
 
     const handleLikeClick = () => {
         const updateBlogObj = {

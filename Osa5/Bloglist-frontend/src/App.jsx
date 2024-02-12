@@ -92,14 +92,14 @@ const App = () => {
       handleNotification(helper.errorUpdateFailure, helper.notificationTypeError)
     }
   }
-
+  
   return (
     <div>
       <Notification notification={notification} notificationType={nofificationType} />
       <Login user={user} login={handleLogin}/>
       <Logout user={user} logoutClick={handleLogout}/>
       <CreateBlog user={user} createBlog={handleCreateBlog}  />
-      <BlogsList user={user} blogs={blogs} likeBlog={handleBlogLike}/>
+      <BlogsList user={user} blogs={blogs} likeBlog={handleBlogLike} />
     </div>
   )
 }
