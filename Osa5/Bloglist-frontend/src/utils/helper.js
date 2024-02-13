@@ -8,14 +8,14 @@ const createdNewBlog        = 'New blog created!'
 const errorBlogValues       = 'Inserted blog values are not valid. Check the title and author'
 const errorUpdateFailure    = 'Updating the blog has failed'
 
-export default { 
-    storageName, 
-    loggedIn, 
-    loggedOut, 
-    notificationTypeInfo, 
-    notificationTypeError,
-    errorCredentials,
-    createdNewBlog, 
-    errorBlogValues,
-    errorUpdateFailure
+export default {
+  storageName,
+  loggedIn,
+  loggedOut,
+  notificationTypeInfo,
+  notificationTypeError,
+  errorCredentials,
+  createdNewBlog,
+  errorBlogValues,
+  errorUpdateFailure
 }

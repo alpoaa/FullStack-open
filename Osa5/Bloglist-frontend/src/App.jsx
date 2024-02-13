@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -27,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem(helper.storageName)
- 
+
     if (loggedUser) {
       const loginUser = JSON.parse(loggedUser)
       setUser(loginUser)
@@ -42,7 +41,7 @@ const App = () => {
       window.localStorage.setItem(helper.storageName, JSON.stringify(loginUser))
       setUser(loginUser)
       handleNotification(helper.loggedIn, helper.notificationTypeInfo)
-      
+
     } catch (exception) {
       handleNotification(helper.errorCredentials, helper.notificationTypeError)
     }
@@ -51,7 +50,7 @@ const App = () => {
   const handleCreateBlog = async(newBlogObj) => {
     try {
       const createdBlog = await blogService.createBlog(newBlogObj)
-      
+
       if (createdBlog) {
         const newBlog  = await blogService.getBlog(createdBlog.id)
         setBlogs(blogs.concat(newBlog))
@@ -82,10 +81,10 @@ const App = () => {
   const handleBlogLike = async(updatedObj, updatedBlogId) => {
     try {
       const updatedBlog = await blogService.updateBlog(updatedObj, updatedBlogId)
-      
+
       if (updatedBlog) {
         const updateBlog  = await blogService.getBlog(updatedBlogId)
-        const newBlogs    = blogs.map(blog => blog.id === updatedBlogId ? {...blog, likes: updateBlog.likes} : blog)
+        const newBlogs    = blogs.map(blog => blog.id === updatedBlogId ? { ...blog, likes: updateBlog.likes } : blog)
         setBlogs(newBlogs)
       }
     } catch (exception) {
@@ -105,7 +104,7 @@ const App = () => {
       handleNotification(exception.message, helper.notificationTypeError)
     }
   }
-  
+
   return (
     <div>
       <Notification notification={notification} notificationType={nofificationType} />
