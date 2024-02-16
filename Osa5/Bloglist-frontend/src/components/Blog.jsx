@@ -27,7 +27,7 @@ const Blog = ({ user, blog, likeBlog, deleteBlog }) => {
         <p>{blog.title}</p>
         <button onClick={setShowAllVisibility}>{ viewAll ? 'Hide' : 'View' }</button>
       </div>
-      {viewAll &&  <div className="blogdetails">
+      {viewAll &&  <div className="blog blogdetails">
         <p>{blog.author}</p>
         <p>{blog.url}</p>
         <p>Likes: {blog.likes}</p>
