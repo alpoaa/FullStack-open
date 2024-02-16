@@ -16,8 +16,16 @@ const testUser = {
   username: 'test',
   name: 'testname'
 }
+const togglableButtonLabel  = 'create new'
+const createBlogTitleInput  = 'Test title input'
+const createBlogAuthorInput = 'Test author input'
+const createBlogUrlInput    = 'Test url input'
 
 export default {
   testBlog,
-  testUser
+  testUser,
+  togglableButtonLabel,
+  createBlogTitleInput,
+  createBlogAuthorInput,
+  createBlogUrlInput
 }

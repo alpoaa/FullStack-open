@@ -44,7 +44,7 @@ describe('Tests for <Blog /> component', () => {
 
   })
 
-  test.only('Clicking like button twice', async() => {
+  test('Clicking like button twice', async() => {
     const testBlog = testHelper.testBlog
     const testUser = testHelper.testUser
 

@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Notification from './components/Notification'
 import CreateBlog from './components/CreateBlog'
+import Togglable from './components/Togglable'
 
 import helper from './utils/helper'
 
@@ -108,9 +109,13 @@ const App = () => {
   return (
     <div>
       <Notification notification={notification} notificationType={nofificationType} />
-      <Login user={user} login={handleLogin}/>
+      <Togglable show={user ? false : true} buttonLabel='Open login'>
+        <Login user={user} login={handleLogin}/>
+      </Togglable>
       <Logout user={user} logoutClick={handleLogout}/>
-      <CreateBlog user={user} createBlog={handleCreateBlog}  />
+      <Togglable show={user ? true : false} buttonLabel='create new'>
+        <CreateBlog user={user} createBlog={handleCreateBlog}  />
+      </Togglable>
       <BlogsList user={user} blogs={blogs} likeBlog={handleBlogLike} deleteBlog={handleBlogDelete}/>
     </div>
   )

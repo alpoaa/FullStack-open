@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 
 import '../styles/login.css'
-import Togglable from './Togglable'
 
 const Login = ( { user, login }) => {
   const [username, setUsername]                 = useState('')
@@ -26,19 +25,18 @@ const Login = ( { user, login }) => {
   if (user) {
     return null
   }
+
   return (
-    <Togglable buttonLabel="Open login">
-      <form className="loginform" onSubmit={userLogin}>
-        <h4>Log in to application</h4>
-        <div>
-                    Username:<input type="text" value={username} name="Username" onChange={onUsernameChange}/>
-        </div>
-        <div>
-                    Password: <input type="password" value={password} name="Password" onChange={onPasswordChange}/>
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </Togglable>
+    <form className="loginform" onSubmit={userLogin}>
+      <h4>Log in to application</h4>
+      <div>
+          Username:<input type="text" value={username} name="Username" onChange={onUsernameChange}/>
+      </div>
+      <div>
+          Password: <input type="password" value={password} name="Password" onChange={onPasswordChange}/>
+      </div>
+      <button type="submit">Login</button>
+    </form>
   )
 }
 
