@@ -44,4 +44,26 @@ describe('Tests for <Blog /> component', () => {
 
   })
 
+  test.only('Clicking like button twice', async() => {
+    const testBlog = testHelper.testBlog
+    const testUser = testHelper.testUser
+
+    const likeClickMock = jest.fn()
+
+    const { container } = render(<Blog blog={ testBlog } user={ testUser } likeBlog={ likeClickMock } />)
+
+    const user             = userEvent.setup()
+    const visibilityButton = screen.getByText('View')
+
+    await user.click(visibilityButton)
+
+    const likeButton = screen.getByText('Like')
+
+    await user.click(likeButton)
+    await user.click(likeButton)
+
+    expect(likeClickMock.mock.calls).toHaveLength(2)
+
+  })
+
 })
