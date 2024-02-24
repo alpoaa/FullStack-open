@@ -25,7 +25,7 @@ const BlogsList = ({ user, blogs, likeBlog, deleteBlog }) =>  {
   }
 
   return (
-    <div>
+    <div id='divbloglist'>
       <h4>Change blogs order</h4>
       <select defaultValue="No filter" onChange={onSortChange}>
         <option value="No filter">No filter</option>

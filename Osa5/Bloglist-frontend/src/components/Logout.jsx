@@ -8,7 +8,7 @@ const Logout = ({ user, logoutClick }) => {
 
   return (
     <div className='logoutmain'>
-      <p>Logged in: {user.username}</p>
+      <p id='textloggedinuser'>Logged in: {user.username}</p>
       <button onClick={logoutClick}>logout</button>
     </div>
   )

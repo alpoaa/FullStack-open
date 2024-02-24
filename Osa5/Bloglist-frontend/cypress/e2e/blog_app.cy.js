@@ -33,4 +33,26 @@ describe('Blog app testing', () => {
       cy.get('#textnotification').contains('Failed credentials. Check username or password')
     })
   })
+
+  describe('Logged in', function() {
+    beforeEach(function() {
+      cy.login({ username: 'testUser', password: 'testUserPassword' })
+      cy.get('#btntogglablelabel').contains('create new').click()
+
+    })
+
+    it('test user logged in', function() {
+      cy.get('#textloggedinuser').contains('Logged in: testUser')
+    })
+
+    it.only('Blog can be created', function() {
+      cy.get('#inputcreateblogtitle').type('Title')
+      cy.get('#inputcreateblogauthor').type('Author')
+      cy.get('#inputcreateblogurl').type('url')
+      cy.get('#btncreateblog').click()
+
+      cy.get('#textnotification').contains('New blog created!')
+      cy.get('#divbloglist').contains('Title')
+    })
+  })
 })
