@@ -40,3 +40,11 @@ Cypress.Commands.add('createTestUser', () => {
   }
   cy.request('POST', `${Cypress.env('BACKEND')}/users`, testUser)
 })
+
+Cypress.Commands.add('createBlog', () => {
+  cy.get('#inputcreateblogtitle').type('Title')
+  cy.get('#inputcreateblogauthor').type('Author')
+  cy.get('#inputcreateblogurl').type('url')
+  cy.get('#btncreateblog').click()
+
+})

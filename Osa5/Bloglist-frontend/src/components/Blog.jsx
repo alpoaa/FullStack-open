@@ -22,23 +22,23 @@ const Blog = ({ user, blog, likeBlog, deleteBlog }) => {
   const showDeleteButton = { display: blog.user.username === user.username ? '' : 'none' }
 
   return (
-    <div className="blogmain">
+    <li className="blogmain">
       <div className="blogtitle">
         <p>{blog.title}</p>
-        <button onClick={setShowAllVisibility}>{ viewAll ? 'Hide' : 'View' }</button>
+        <button id="btnblogvisibility" onClick={setShowAllVisibility}>{ viewAll ? 'Hide' : 'View' }</button>
       </div>
       {viewAll &&  <div className="blog blogdetails">
         <p>{blog.author}</p>
         <p>{blog.url}</p>
         <p>Likes: {blog.likes}</p>
         <p>{blog.user.name}</p>
-        <button onClick={handleLikeClick}>Like</button>
+        <button id="btnbloglike" onClick={handleLikeClick}>Like</button>
         <div style={showDeleteButton}>
-          <button onClick={handleDeleteClick}>Delete</button>
+          <button id="btnblogdelete"onClick={handleDeleteClick}>Delete</button>
         </div>
       </div>
       }
-    </div>
+    </li>
   )
 }
 

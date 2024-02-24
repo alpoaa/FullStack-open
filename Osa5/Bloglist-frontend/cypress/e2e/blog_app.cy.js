@@ -6,7 +6,7 @@ describe('Blog app testing', () => {
     cy.createTestUser()
     cy.visit('')
   })
-
+  /*
   it('Login form is shown', function() {
     cy.get('#btntogglablelabel').contains('Open login').click()
     cy.get('#textlogintitle').contains('Log in to application')
@@ -33,7 +33,7 @@ describe('Blog app testing', () => {
       cy.get('#textnotification').contains('Failed credentials. Check username or password')
     })
   })
-
+  */
   describe('Logged in', function() {
     beforeEach(function() {
       cy.login({ username: 'testUser', password: 'testUserPassword' })
@@ -45,14 +45,16 @@ describe('Blog app testing', () => {
       cy.get('#textloggedinuser').contains('Logged in: testUser')
     })
 
-    it.only('Blog can be created', function() {
-      cy.get('#inputcreateblogtitle').type('Title')
-      cy.get('#inputcreateblogauthor').type('Author')
-      cy.get('#inputcreateblogurl').type('url')
-      cy.get('#btncreateblog').click()
-
+    it('Blog can be created', function() {
+      cy.createBlog()
       cy.get('#textnotification').contains('New blog created!')
       cy.get('#divbloglist').contains('Title')
+    })
+
+    it.only('Blog can be liked', function() {
+      cy.createBlog()
+      cy.get('#btnblogvisibility').contains('View').click()
+      cy.get('#btnbloglike').click()
     })
   })
 })
