@@ -35,7 +35,7 @@ const Login = ( { user, login }) => {
       <div>
           Password: <input type="password" value={password} name="Password" onChange={onPasswordChange} id='inputpassword'/>
       </div>
-      <button type="submit">Login</button>
+      <button type="submit" id='btnlogin'>Login</button>
     </form>
   )
 }

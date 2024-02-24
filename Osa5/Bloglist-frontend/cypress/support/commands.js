@@ -31,3 +31,12 @@ Cypress.Commands.add('login', ({ username, password }) => {
       cy.visit('')
     })
 })
+
+Cypress.Commands.add('createTestUser', () => {
+  const testUser = {
+    name: 'Test user cypress',
+    username: 'testUser',
+    password: 'testUserPassword'
+  }
+  cy.request('POST', `${Cypress.env('BACKEND')}/users`, testUser)
+})
