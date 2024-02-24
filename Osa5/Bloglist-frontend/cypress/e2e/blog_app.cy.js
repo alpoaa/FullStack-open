@@ -56,5 +56,14 @@ describe('Blog app testing', () => {
       cy.get('#btnblogvisibility').contains('View').click()
       cy.get('#btnbloglike').click()
     })
+
+    it('Blog can be deleted', function() {
+      cy.createBlog()
+      cy.get('#btnblogvisibility').contains('View').click()
+      cy.get('#btnblogdelete').should('have.css', 'display', 'inline-block')
+      cy.get('#btnblogdelete').click()
+
+      cy.get('html').should('not.contain', '#blogmain')
+    })
   })
 })

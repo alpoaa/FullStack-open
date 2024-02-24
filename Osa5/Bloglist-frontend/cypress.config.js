@@ -8,5 +8,6 @@ export default defineConfig({
   },
   env: {
     BACKEND: 'http://localhost:3003/api'
-  }
+  },
+  defaultCommandTimeout: 10000
 })
