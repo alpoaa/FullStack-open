@@ -28,12 +28,12 @@ const Login = ( { user, login }) => {
 
   return (
     <form className="loginform" onSubmit={userLogin}>
-      <h4>Log in to application</h4>
+      <h4 id='textlogintitle'>Log in to application</h4>
       <div>
-          Username:<input type="text" value={username} name="Username" onChange={onUsernameChange}/>
+          Username:<input type="text" value={username} name="Username" onChange={onUsernameChange} id='inputusername'/>
       </div>
       <div>
-          Password: <input type="password" value={password} name="Password" onChange={onPasswordChange}/>
+          Password: <input type="password" value={password} name="Password" onChange={onPasswordChange} id='inputpassword'/>
       </div>
       <button type="submit">Login</button>
     </form>

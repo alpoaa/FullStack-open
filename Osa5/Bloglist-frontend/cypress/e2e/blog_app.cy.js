@@ -6,8 +6,9 @@ describe('Blog app testing', () => {
     cy.visit('')
   })
 
-  it.only('Login form is shown', function() {
-    cy.get('#toggleBtnLabel').contains('Open login')
+  it('Login form is shown', function() {
+    cy.get('#btntogglablelabel').contains('Open login').click()
+    cy.get('#textlogintitle').contains('Log in to application')
   })
 
 })
